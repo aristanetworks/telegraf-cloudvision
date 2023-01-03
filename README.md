@@ -102,8 +102,20 @@ sudo chmod u+x arista_cloudvision_telemetry && sudo chmod 700 arista_cloudvision
 
 * You should be able to call this from telegraf now using execd
 ```
-[[inputs.execd]]
-  command = ["$PWD/arista_cloudvision_telemetry", "--config", "$PWD/sample.conf"]
-  signal = "none"
+telegraf --config sample.conf
 ```
+
+Sample Data
+
+```/interfaces/interface/state/counters/out_unicast_pkts,host=DC1-SPINE2,host-id=SN-DC1-SPINE2,name=Management1 /interfaces/interface/state/counters/out_unicast_pkts=265632i 1672776243484954323
+/interfaces/interface/state/counters/in_octets,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/in_octets=45232345i 1672776243495455764
+/interfaces/interface/state/counters/in_pkts,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/in_pkts=228184i 1672776243495455764
+/interfaces/interface/state/counters/in_unicast_pkts,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/in_unicast_pkts=228184i 1672776243495455764
+/interfaces/interface/state/counters/out_octets,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/out_octets=36872275i 1672776243495455764
+/interfaces/interface/state/counters/out_pkts,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/out_pkts=258831i 1672776243495455764
+/interfaces/interface/state/counters/out_unicast_pkts,host=DC1-LEAF2B,host-id=SN-DC1-LEAF2B,name=Management1 /interfaces/interface/state/counters/out_unicast_pkts=258831i 1672776243495455764
+```
+
+
+
 This self-contained plugin is based on the documentations of [Execd Go Shim](https://github.com/influxdata/telegraf/blob/effe112473a6bd8991ef8c12e293353c92f1d538/plugins/common/shim/README.md)
