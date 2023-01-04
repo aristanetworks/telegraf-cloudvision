@@ -2,4 +2,3 @@
 /telegraf.exe
 /telegraf.gz
 /*.toml
-/*.conf
