@@ -33,6 +33,7 @@ import (
 )
 
 // DO NOT REMOVE THE NEXT TWO LINES! This is required to embed the sampleConfig data.
+//
 //go:embed sample.conf
 var sampleConfig string
 
@@ -226,20 +227,22 @@ func (c *CVP) CvpDevices() map[string]string {
 	devs := map[string]string{}
 	//Loop through and add devices to devs map that are currently streaming.
 	for _, i := range f {
-		var dev CvPDevices
-		err = json.Unmarshal([]byte(i), &dev)
-		if err != nil {
-			c.Log.Debugf("Cannot marshall HTTP Connection to CVP")
-		}
-		if dev.Result.Value.StreamingStatus == "STREAMING_STATUS_ACTIVE" {
-			devs[dev.Result.Value.Fqdn] = dev.Result.Value.Key.DeviceID
+		if len(i) > 0 {
+			var dev CvPDevices
+			err = json.Unmarshal([]byte(i), &dev)
+			if err != nil {
+				c.Log.Debugf("Cannot marshall HTTP Connection to CVP")
+			}
+			if dev.Result.Value.StreamingStatus == "STREAMING_STATUS_ACTIVE" {
+				devs[dev.Result.Value.Fqdn] = dev.Result.Value.Key.DeviceID
+			}
 		}
 	}
 	//Return devices.
 	return devs
 }
 
-//ParsePath from XPath-like string to gNMI path structure
+// ParsePath from XPath-like string to gNMI path structure
 func parsePath(origin string, pathToParse string, target []string) ([]*gnmiLib.Path, error) {
 	var err error
 	var gnmilibsslice []*gnmiLib.Path
