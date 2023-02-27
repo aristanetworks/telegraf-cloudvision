@@ -372,7 +372,7 @@ func (c *CVP) newSubscribeRequest(targets []string) ([]*gnmiLib.SubscribeRequest
 func (c *CVP) subscribeGNMI(ctx context.Context, address string, tlscfg *tls.Config, request *gnmiLib.SubscribeRequest) error {
 	// Create a slice of grpc options for multiple different options.
 	var options []grpc.DialOption
-	options = append(options, grpc.WithUserAgent("telegraf-cloudvision/v1.0"))
+	options = append(options, grpc.WithUserAgent("telegraf-cloudvision/1.0"))
 	if len(c.Cvptoken) > 0 {
 		options = append(options, grpc.WithPerRPCCredentials((oauth.NewOauthAccess(&oauth2.Token{
 			AccessToken: c.Cvptoken,
